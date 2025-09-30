@@ -1,0 +1,93 @@
+{
+  "version": "1.0.0",
+  "directives": {
+    "defaultSrc": ["'self'"],
+    "scriptSrc": [
+      "'self'",
+      "'unsafe-inline'",
+      "'unsafe-eval'",
+      "https://cdn.jsdelivr.net",
+      "https://unpkg.com",
+      "https://www.google-analytics.com",
+      "https://www.googletagmanager.com"
+    ],
+    "styleSrc": [
+      "'self'",
+      "'unsafe-inline'",
+      "https://fonts.googleapis.com",
+      "https://cdn.jsdelivr.net"
+    ],
+    "imgSrc": [
+      "'self'",
+      "data:",
+      "blob:",
+      "https:",
+      "https://www.gravatar.com",
+      "https://avatars.githubusercontent.com"
+    ],
+    "fontSrc": [
+      "'self'",
+      "data:",
+      "https://fonts.gstatic.com"
+    ],
+    "connectSrc": [
+      "'self'",
+      "wss://ivanchat.com",
+      "https://api.ivanchat.com",
+      "https://www.google-analytics.com"
+    ],
+    "mediaSrc": [
+      "'self'",
+      "blob:",
+      "https://ivanchat.com"
+    ],
+    "objectSrc": ["'none'"],
+    "childSrc": ["'self'"],
+    "frameSrc": ["'self'"],
+    "workerSrc": ["'self'", "blob:"],
+    "formAction": ["'self'"],
+    "frameAncestors": ["'none'"],
+    "baseUri": ["'self'"],
+    "manifestSrc": ["'self'"],
+    "upgradeInsecureRequests": true,
+    "blockAllMixedContent": true
+  },
+  "reportUri": "https://ivanchat.com/api/csp-report",
+  "reportOnly": false,
+  "environment": {
+    "development": {
+      "scriptSrc": ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+      "reportOnly": true
+    },
+    "staging": {
+      "scriptSrc": ["'self'", "'unsafe-inline'"],
+      "reportOnly": true
+    },
+    "production": {
+      "scriptSrc": ["'self'"],
+      "reportOnly": false
+    }
+  },
+  "nonce": {
+    "enabled": true,
+    "length": 32
+  },
+  "hash": {
+    "algorithm": "sha256",
+    "scripts": [],
+    "styles": []
+  },
+  "violations": {
+    "log": true,
+    "alert": true,
+    "block": true,
+    "rateLimit": {
+      "window": 60000,
+      "max": 10
+    }
+  },
+  "exceptions": {
+    "paths": ["/api/webhook/*"],
+    "userAgents": []
+  }
+}

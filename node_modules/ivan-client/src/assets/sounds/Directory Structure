@@ -1,0 +1,30 @@
+client/src/assets/sounds/
+├── notifications/
+│   ├── message.mp3
+│   ├── mention.mp3
+│   ├── dm.mp3
+│   ├── server-notification.mp3
+│   └── achievement.mp3
+├── voice/
+│   ├── join.mp3
+│   ├── leave.mp3
+│   ├── mute.mp3
+│   ├── unmute.mp3
+│   ├── deafen.mp3
+│   ├── undeafen.mp3
+│   ├── disconnect.mp3
+│   └── ringtone.mp3node -v
+├── ui/
+│   ├── button-click.mp3
+│   ├── modal-open.mp3
+│   ├── modal-close.mp3
+│   ├── error.mp3
+│   ├── success.mp3
+│   └── typing.mp3
+├── calls/
+│   ├── incoming-call.mp3
+│   ├── outgoing-call.mp3
+│   ├── call-end.mp3
+│   └── call-busy.mp3
+├── index.js
+└── README.md

@@ -1,0 +1,91 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+      version:
+        description: 'Version to deploy'
+        required: true
+        default: 'latest'
+
+jobs:
+  deploy:
+    name: Deploy to ${{ github.event.inputs.environment }}
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.event.inputs.environment }}
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      
+      - name: Deploy to EKS
+        run: |
+          aws eks update-kubeconfig --name ivan-${{ github.event.inputs.environment }}
+          
+          # Update image tags
+          kubectl set image deployment/ivan-backend \
+            backend=${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}-server:${{ github.event.inputs.version }} \
+            -n ivan-${{ github.event.inputs.environment }}
+          
+          kubectl set image deployment/ivan-frontend \
+            frontend=${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}-client:${{ github.event.inputs.version }} \
+            -n ivan-${{ github.event.inputs.environment }}
+          
+          # Wait for rollout
+          kubectl rollout status deployment/ivan-backend -n ivan-${{ github.event.inputs.environment }}
+          kubectl rollout status deployment/ivan-frontend -n ivan-${{ github.event.inputs.environment }}
+      
+      - name: Run migrations
+        if: github.event.inputs.environment == 'production'
+        run: |
+          kubectl run migration-${{ github.sha }} \
+            --image=${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}-server:${{ github.event.inputs.version }} \
+            --restart=Never \
+            --rm -i \
+            -n ivan-${{ github.event.inputs.environment }} \
+            -- npm run migrate:prod
+      
+      - name: Verify deployment
+        run: |
+          ./scripts/verify-deployment.sh ${{ github.event.inputs.environment }}
+      
+      - name: Notify team
+        uses: slackapi/slack-github-action@v1
+        with:
+          payload: |
+            {
+              "text": "✅ Deployment to ${{ github.event.inputs.environment }} completed",
+              "attachments": [{
+                "color": "good",
+                "fields": [{
+                  "title": "Environment",
+                  "value": "${{ github.event.inputs.environment }}",
+                  "short": true
+                }, {
+                  "title": "Version",
+                  "value": "${{ github.event.inputs.version }}",
+                  "short": true
+                }, {
+                  "title": "Deployed by",
+                  "value": "${{ github.actor }}",
+                  "short": true
+                }]
+              }]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}

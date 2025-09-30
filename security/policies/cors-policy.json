@@ -1,0 +1,137 @@
+{
+  "version": "1.0.0",
+  "environment": {
+    "development": {
+      "origin": [
+        "http://localhost:3000",
+        "http://localhost:3001",
+        "http://127.0.0.1:3000",
+        "http://127.0.0.1:3001"
+      ],
+      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+      "allowedHeaders": [
+        "Content-Type",
+        "Authorization",
+        "X-Requested-With",
+        "X-CSRF-Token",
+        "X-Request-ID",
+        "X-Timestamp",
+        "X-Client-Version"
+      ],
+      "exposedHeaders": [
+        "X-Total-Count",
+        "X-Page-Count",
+        "X-Current-Page",
+        "X-Per-Page",
+        "X-Rate-Limit",
+        "X-Rate-Remaining"
+      ],
+      "credentials": true,
+      "maxAge": 86400,
+      "preflightContinue": false,
+      "optionsSuccessStatus": 204
+    },
+    "staging": {
+      "origin": [
+        "https://staging.ivanchat.com",
+        "https://beta.ivanchat.com"
+      ],
+      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+      "allowedHeaders": [
+        "Content-Type",
+        "Authorization",
+        "X-Requested-With",
+        "X-CSRF-Token",
+        "X-Request-ID",
+        "X-Timestamp",
+        "X-Client-Version"
+      ],
+      "exposedHeaders": [
+        "X-Total-Count",
+        "X-Page-Count",
+        "X-Current-Page",
+        "X-Per-Page",
+        "X-Rate-Limit",
+        "X-Rate-Remaining"
+      ],
+      "credentials": true,
+      "maxAge": 3600,
+      "preflightContinue": false,
+      "optionsSuccessStatus": 204
+    },
+    "production": {
+      "origin": [
+        "https://ivanchat.com",
+        "https://www.ivanchat.com",
+        "https://app.ivanchat.com"
+      ],
+      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+      "allowedHeaders": [
+        "Content-Type",
+        "Authorization",
+        "X-Requested-With",
+        "X-CSRF-Token",
+        "X-Request-ID"
+      ],
+      "exposedHeaders": [
+        "X-Total-Count",
+        "X-Rate-Limit",
+        "X-Rate-Remaining"
+      ],
+      "credentials": true,
+      "maxAge": 3600,
+      "preflightContinue": false,
+      "optionsSuccessStatus": 204
+    }
+  },
+  "whitelist": {
+    "domains": [
+      "ivanchat.com",
+      "*.ivanchat.com"
+    ],
+    "ips": []
+  },
+  "blacklist": {
+    "domains": [],
+    "ips": []
+  },
+  "rules": {
+    "allowDynamicOrigin": false,
+    "validateOrigin": true,
+    "strictOrigin": true,
+    "allowNullOrigin": false,
+    "allowFileProtocol": false,
+    "requireHttps": true
+  },
+  "endpoints": {
+    "/api/public/*": {
+      "origin": "*",
+      "methods": ["GET"],
+      "credentials": false
+    },
+    "/api/auth/*": {
+      "origin": true,
+      "methods": ["POST", "OPTIONS"],
+      "credentials": true
+    },
+    "/api/admin/*": {
+      "origin": ["https://ANKS.ivanchat.com"],
+      "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      "credentials": true
+    }
+  },
+  "errors": {
+    "invalidOrigin": {
+      "status": 403,
+      "message": "Origin not allowed"
+    },
+    "invalidMethod": {
+      "status": 405,
+      "message": "Method not allowed"
+    },
+    "invalidHeaders": {
+      "status": 400,
+      "message": "Invalid headers"
+    }
+  }
+}
