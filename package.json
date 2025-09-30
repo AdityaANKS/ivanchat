@@ -1,0 +1,51 @@
+{
+  "name": "ivan",
+  "version": "1.0.0",
+  "description": "Real-time public chat application",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client",
+    "mobile",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix client\" \"npm run dev --prefix server\"",
+    "build": "npm run build --prefix client && npm run build --prefix server",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "build:server": "cd server && npm run build",
+    "build:client": "cd client && npm run build",
+    "start": "node server/dist/index.js",
+    "test": "npm run test:server && npm run test:client",
+    "test:server": "cd server && npm test",
+    "test:client": "cd client && npm test",
+    "docker:dev": "docker-compose -f docker-compose.dev.yml up",
+    "docker:build": "docker-compose build",
+    "docker:prod": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d",
+    "setup": "node scripts/setup.js",
+    "migrate": "cd server && npm run migrate",
+    "seed": "cd server && npm run seed"
+  },
+  "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^7.0.2",
+    "autoprefixer": "^10.4.21",
+    "concurrently": "^8.2.0",
+    "cssnano": "^7.1.1",
+    "eslint": "^8.50.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^16.2.0",
+    "postcss": "^8.5.6",
+    "postcss-import": "^16.1.1",
+    "postcss-nesting": "^13.0.2",
+    "postcss-preset-env": "^10.4.0",
+    "prettier": "^3.0.3",
+    "tailwindcss": "^4.1.13"
+  },
+  "dependencies": {
+    "dompurify": "^3.2.7",
+    "jsdom": "^22.1.0",
+    "validator": "^13.15.15",
+    "vite": "7.1.7"
+  }
+}

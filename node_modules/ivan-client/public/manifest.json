@@ -1,0 +1,301 @@
+{
+  "name": "Ivan - Connect, Chat, and Collaborate",
+  "short_name": "Ivan",
+  "description": "Modern chat platform that brings communities together. Voice, video, text, and more.",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#36393f",
+  "theme_color": "#5865F2",
+  "orientation": "any",
+  "scope": "/",
+  "lang": "en-US",
+  "dir": "ltr",
+  "categories": ["social", "communication", "productivity"],
+  "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
+  
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-48x48.png",
+      "sizes": "48x48",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  
+  "screenshots": [
+    {
+      "src": "/screenshots/desktop-1.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "Ivan Desktop - Main Chat Interface"
+    },
+    {
+      "src": "/screenshots/desktop-2.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "Ivan Desktop - Voice and Video Calls"
+    },
+    {
+      "src": "/screenshots/mobile-1.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "Ivan Mobile - Chat View"
+    },
+    {
+      "src": "/screenshots/mobile-2.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "Ivan Mobile - Server List"
+    }
+  ],
+  
+  "shortcuts": [
+    {
+      "name": "Direct Messages",
+      "short_name": "DMs",
+      "description": "Open direct messages",
+      "url": "/channels/@me",
+      "icons": [
+        {
+          "src": "/shortcuts/dm-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Create Server",
+      "short_name": "New Server",
+      "description": "Create a new server",
+      "url": "/servers/create",
+      "icons": [
+        {
+          "src": "/shortcuts/create-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Explore",
+      "short_name": "Explore",
+      "description": "Discover public servers",
+      "url": "/explore",
+      "icons": [
+        {
+          "src": "/shortcuts/explore-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "media",
+          "accept": [
+            "image/*",
+            "video/*",
+            "audio/*",
+            "application/pdf",
+            "text/*"
+          ]
+        }
+      ]
+    }
+  },
+  
+  "protocol_handlers": [
+    {
+      "protocol": "web+ivan",
+      "url": "/protocol?url=%s"
+    }
+  ],
+  
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.ivan.app",
+      "id": "com.ivan.app"
+    },
+    {
+      "platform": "itunes",
+      "url": "https://apps.apple.com/app/ivan/id123456789"
+    },
+    {
+      "platform": "windows",
+      "url": "https://www.microsoft.com/store/apps/ivan"
+    }
+  ],
+  
+  "prefer_related_applications": false,
+  
+  "permissions": [
+    "notifications",
+    "microphone",
+    "camera",
+    "geolocation",
+    "clipboard-read",
+    "clipboard-write"
+  ],
+  
+  "features": [
+    "screen-wake-lock",
+    "idle-detection",
+    "web-share",
+    "contacts",
+    "periodic-background-sync"
+  ],
+  
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui",
+    "browser"
+  ],
+  
+  "handle_links": "preferred",
+  
+  "launch_handler": {
+    "client_mode": ["focus-existing", "auto"]
+  },
+  
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  
+  "file_handlers": [
+    {
+      "action": "/open-file",
+      "accept": {
+        "image/*": [".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg"],
+        "video/*": [".mp4", ".webm", ".mov"],
+        "audio/*": [".mp3", ".wav", ".ogg", ".m4a"],
+        "text/*": [".txt", ".md", ".json", ".js", ".html", ".css"],
+        "application/pdf": [".pdf"]
+      }
+    }
+  ],
+  
+  "capture_links": "existing_client_event",
+  
+  "url_handlers": [
+    {
+      "origin": "https://ivan.chat"
+    },
+    {
+      "origin": "https://app.ivan.chat"
+    }
+  ],
+  
+  "widgets": [
+    {
+      "name": "Quick Chat",
+      "description": "Quick access to recent chats",
+      "tag": "quick-chat",
+      "template": "quick-chat-template",
+      "type": "text/html",
+      "sizes": "400x400",
+      "screenshots": [
+        {
+          "src": "/widgets/quick-chat.png",
+          "sizes": "400x400",
+          "label": "Quick chat widget"
+        }
+      ]
+    }
+  ]
+}
