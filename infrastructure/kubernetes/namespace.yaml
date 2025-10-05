@@ -1,0 +1,104 @@
+# infrastructure/kubernetes/namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ivanchat
+  labels:
+    name: ivanchat
+    environment: production
+    app.kubernetes.io/name: ivanchat
+    app.kubernetes.io/managed-by: kubectl
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ivanchat-staging
+  labels:
+    name: ivanchat-staging
+    environment: staging
+    app.kubernetes.io/name: ivanchat
+    app.kubernetes.io/managed-by: kubectl
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ivanchat-monitoring
+  labels:
+    name: ivanchat-monitoring
+    environment: monitoring
+    app.kubernetes.io/name: ivanchat-monitoring
+    app.kubernetes.io/managed-by: kubectl
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: ivanchat-quota
+  namespace: ivanchat
+spec:
+  hard:
+    requests.cpu: "100"
+    requests.memory: 200Gi
+    requests.storage: 1Ti
+    persistentvolumeclaims: "10"
+    services.loadbalancers: "2"
+    services.nodeports: "10"
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: ivanchat-limits
+  namespace: ivanchat
+spec:
+  limits:
+  - max:
+      cpu: "4"
+      memory: 8Gi
+    min:
+      cpu: 100m
+      memory: 128Mi
+    default:
+      cpu: 500m
+      memory: 512Mi
+    defaultRequest:
+      cpu: 250m
+      memory: 256Mi
+    type: Container
+  - max:
+      storage: 10Gi
+    min:
+      storage: 1Gi
+    type: PersistentVolumeClaim
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-network-policy
+  namespace: ivanchat
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ivanchat
+    - namespaceSelector:
+        matchLabels:
+          name: ivanchat-monitoring
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+  egress:
+  - to:
+    - namespaceSelector: {}
+    ports:
+    - protocol: TCP
+      port: 53
+    - protocol: UDP
+      port: 53
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: ivanchat

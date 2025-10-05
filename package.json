@@ -1,51 +1,101 @@
 {
-  "name": "ivan",
+  "name": "ivanchat-application",
   "version": "1.0.0",
-  "description": "Real-time public chat application",
+  "description": "A modern real-time chat application inspired by Discord",
   "private": true,
   "workspaces": [
     "server",
     "client",
     "mobile",
+    "desktop",
     "shared"
   ],
   "scripts": {
-    "dev": "concurrently \"npm run dev --prefix client\" \"npm run dev --prefix server\"",
-    "build": "npm run build --prefix client && npm run build --prefix server",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "dev:server": "cd server && npm run dev",
     "dev:client": "cd client && npm run dev",
+    "dev:mobile": "cd mobile && npm run start",
+    "dev:desktop": "cd desktop && npm run dev",
+    "build": "npm run build:shared && npm run build:server && npm run build:client",
+    "build:shared": "cd shared && npm run build",
     "build:server": "cd server && npm run build",
     "build:client": "cd client && npm run build",
-    "start": "node server/dist/index.js",
+    "build:mobile": "cd mobile && npm run build",
+    "build:desktop": "cd desktop && npm run build",
+    "start": "concurrently \"npm run start:server\" \"npm run start:client\"",
+    "start:server": "cd server && npm start",
+    "start:client": "cd client && npm start",
     "test": "npm run test:server && npm run test:client",
     "test:server": "cd server && npm test",
     "test:client": "cd client && npm test",
-    "docker:dev": "docker-compose -f docker-compose.dev.yml up",
+    "test:e2e": "npm run cypress:run",
+    "lint": "npm run lint:server && npm run lint:client",
+    "lint:server": "cd server && npm run lint",
+    "lint:client": "cd client && npm run lint",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
     "docker:build": "docker-compose build",
-    "docker:prod": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d",
-    "setup": "node scripts/setup.js",
-    "migrate": "cd server && npm run migrate",
-    "seed": "cd server && npm run seed"
+    "docker:logs": "docker-compose logs -f",
+    "docker:clean": "docker-compose down -v",
+    "db:migrate": "cd server && npm run migrate",
+    "db:seed": "cd server && npm run seed",
+    "security:audit": "npm audit && cd server && npm audit && cd ../client && npm audit",
+    "security:fix": "npm audit fix && cd server && npm audit fix && cd ../client && npm audit fix",
+    "setup": "npm install && npm run setup:server && npm run setup:client",
+    "setup:server": "cd server && npm install",
+    "setup:client": "cd client && npm install",
+    "deploy": "npm run build && npm run deploy:server && npm run deploy:client",
+    "deploy:server": "cd server && npm run deploy",
+    "deploy:client": "cd client && npm run deploy",
+    "monitoring:start": "docker-compose -f docker-compose.monitoring.yml up -d",
+    "monitoring:stop": "docker-compose -f docker-compose.monitoring.yml down",
+    "backup": "./scripts/backup.sh",
+    "restore": "./scripts/restore.sh",
+    "generate:keys": "bash ./scripts/security/generate-keys.sh",
+    "rotate:secrets": "./scripts/security/rotate-secrets.sh"
   },
   "devDependencies": {
-    "@fullhuman/postcss-purgecss": "^7.0.2",
-    "autoprefixer": "^10.4.21",
-    "concurrently": "^8.2.0",
-    "cssnano": "^7.1.1",
+    "@commitlint/cli": "^17.7.1",
+    "@commitlint/config-conventional": "^17.7.0",
+    "concurrently": "^8.2.1",
+    "cross-env": "^7.0.3",
+    "cypress": "^13.3.0",
     "eslint": "^8.50.0",
     "husky": "^8.0.3",
-    "lint-staged": "^16.2.0",
-    "postcss": "^8.5.6",
-    "postcss-import": "^16.1.1",
-    "postcss-nesting": "^13.0.2",
-    "postcss-preset-env": "^10.4.0",
+    "lerna": "^7.3.0",
+    "lint-staged": "^14.0.1",
     "prettier": "^3.0.3",
-    "tailwindcss": "^4.1.13"
+    "typescript": "^5.9.2"
   },
-  "dependencies": {
-    "dompurify": "^3.2.7",
-    "jsdom": "^22.1.0",
-    "validator": "^13.15.15",
-    "vite": "7.1.7"
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AdityaANKS/ivanchat.git"
+  },
+  "author": "AdityaANKS",
+  "license": "MIT",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   }
 }

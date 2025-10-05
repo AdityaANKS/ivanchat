@@ -1,20 +1,6 @@
 version: '3.8'
 
 services:
-  mongodb:
-    image: mongo:6
-    container_name: ivan-mongodb
-    restart: always
-    ports:
-      - "27017:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: password
-      MONGO_INITDB_DATABASE: ivan_dev
-    volumes:
-      - mongodb_data:/data/db
-    networks:
-      - ivan-network
 
   redis:
     image: redis:7-alpine
@@ -27,6 +13,93 @@ services:
       - redis_data:/data
     networks:
       - ivan-network
+
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+      - backend-uploads:/app/uploads
+    environment:
+      NODE_ENV: development
+      DEBUG: ivanchat:*
+      LOG_LEVEL: debug
+    command: npm run dev
+    
+  # Override frontend for development
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: development
+      CHOKIDAR_USEPOLLING: true
+    command: npm run dev
+    
+  # Development database with initialization
+  mongodb:
+    image: mongo:6
+    container_name: ivanchat-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: ivanchat_dev
+    volumes:
+      - mongodb_data:/data/db
+      - ./scripts/mongo-init.js:/docker-entrypoint-initdb.d/01-init.js:ro
+      - ./scripts/sample-data.js:/docker-entrypoint-initdb.d/02-sample-data.js:ro
+    command: mongod --quiet --logpath /dev/null
+    networks:
+      - ivanchat-network
+        
+  # Mailhog for email testing
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: ivanchat-mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - ivanchat-network
+      
+  # Adminer for database management
+  adminer:
+    image: adminer:latest
+    container_name: ivanchat-adminer
+    ports:
+      - "8080:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: mongodb
+    networks:
+      - ivanchat-network
+      
+  # Redis Commander for Redis management
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: ivanchat-redis-commander
+    environment:
+      REDIS_HOSTS: redis:redis:6379:0:${REDIS_PASSWORD:-redis_password}
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
+    networks:
+      - ivanchat-network
+    command: 
+      - redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-redis_password} --loglevel debug
+
+volumes:
+  backend-uploads:
+  mongodb_data:
+  redis_data:
+  minio_data:
 
   minio:
     image: minio/minio:latest
@@ -46,8 +119,3 @@ services:
 networks:
   ivan-network:
     driver: bridge
-
-volumes:
-  mongodb_data:
-  redis_data:
-  minio_data:

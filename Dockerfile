@@ -1,9 +1,20 @@
 FROM openjdk:21-jdk-alpine
-VOLUME /tmp
-ARG JAVA_OPTS
-ENV JAVA_OPTS=$JAVA_OPTS
-COPY ivan.jar ivan.jar
+
+
+# Set working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json first (better caching)
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install --production
+
+# Copy all project files
+COPY . .
+
+# Expose port (match your Node.js server, usually 3000 or 8080)
 EXPOSE 3000
-ENTRYPOINT ["sh", "-c", "exec java $JAVA_OPTS -jar ivan.jar"]
-# For Spring-Boot project, use the entrypoint below to reduce Tomcat startup time.
-#ENTRYPOINT ["sh", "-c", "exec java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar ivan.jar"]
+
+# Start app
+CMD ["npm", "start"]

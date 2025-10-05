@@ -1,0 +1,94 @@
+{
+  "name": "ivanchat-desktop",
+  "version": "1.0.0",
+  "description": "IvanChat Desktop Application",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron-forge start",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac",
+    "build:linux": "electron-builder --linux",
+    "dist": "electron-builder --publish=always",
+    "postinstall": "electron-builder install-app-deps",
+    "test": "jest",
+    "lint": "eslint src/"
+  },
+  "build": {
+    "appId": "com.ivanchat.desktop",
+    "productName": "IvanChat",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.social-networking",
+      "icon": "assets/icons/icon.icns",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "win": {
+      "icon": "assets/icons/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "icon": "assets/icons",
+      "target": [
+        "AppImage",
+        "deb",
+        "rpm"
+      ],
+      "category": "Network;Chat"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "ivanchat",
+      "repo": "ivanchat-desktop"
+    }
+  },
+  "dependencies": {
+    "@electron/remote": "^2.0.11",
+    "electron-context-menu": "^3.6.1",
+    "electron-dl": "^3.5.0",
+    "electron-is-dev": "^2.0.0",
+    "electron-localshortcut": "^3.2.1",
+    "electron-log": "^4.4.8",
+    "electron-store": "^8.1.0",
+    "electron-updater": "^6.1.4",
+    "electron-window-state": "^5.0.3",
+    "node-notifier": "^10.0.1"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.4.2",
+    "electron": "^26.2.4",
+    "electron-builder": "^24.6.4",
+    "electron-devtools-installer": "^3.2.0",
+    "eslint": "^8.49.0",
+    "jest": "^29.7.0"
+  }
+}
