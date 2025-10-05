@@ -1,0 +1,97 @@
+# docker-compose.prod.yml
+version: '3.8'
+
+services:
+  backend:
+    image: ivanchat/backend:${VERSION:-latest}
+    restart: always
+    deploy:
+      replicas: 3
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+      update_config:
+        parallelism: 1
+        delay: 10s
+        failure_action: rollback
+        monitor: 60s
+        max_failure_ratio: 0.3
+    environment:
+      NODE_ENV: production
+      LOG_LEVEL: info
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    
+  frontend:
+    image: ivanchat/frontend:${VERSION:-latest}
+    restart: always
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    
+  mongodb:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.type == database
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_backup:/backup
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
+    
+  redis:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.type == cache
+    volumes:
+      - redis_data:/data
+      - redis_backup:/backup
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    
+  nginx:
+    deploy:
+      replicas: 2
+      placement:
+        preferences:
+          - spread: node.id
+    volumes:
+      - ./nginx-prod.conf:/etc/nginx/nginx.conf:ro
+      - ./security/ssl:/etc/nginx/ssl:ro
+      - nginx_cache:/var/cache/nginx
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  mongodb_backup:
+  redis_backup:
+  nginx_cache:

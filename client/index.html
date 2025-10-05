@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <!-- Primary Meta Tags -->
+    <title>IvanChat - Connect, Chat, and Collaborate</title>
+    <meta name="title" content="IvanChat - Connect, Chat, and Collaborate">
+    <meta name="description" content="IvanChat is a modern real-time chat application that brings communities together. Voice, video, text chat and more - all in one platform.">
+    <meta name="keywords" content="chat, messaging, voice chat, video call, real-time, community, discord alternative">
+    <meta name="author" content="IvanChat Team">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ivanchat.com/">
+    <meta property="og:title" content="IvanChat - Connect, Chat, and Collaborate">
+    <meta property="og:description" content="IvanChat is a modern real-time chat application that brings communities together. Voice, video, text chat and more - all in one platform.">
+    <meta property="og:image" content="https://ivanchat.com/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="IvanChat">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ivanchat.com/">
+    <meta property="twitter:title" content="IvanChat - Connect, Chat, and Collaborate">
+    <meta property="twitter:description" content="IvanChat is a modern real-time chat application that brings communities together.">
+    <meta property="twitter:image" content="https://ivanchat.com/twitter-image.jpg">
+    <meta property="twitter:site" content="@ivanchat">
+    <meta property="twitter:creator" content="@ivanchat">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#5865F2">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="IvanChat">
+    <meta name="application-name" content="IvanChat">
+    <meta name="msapplication-TileColor" content="#5865F2">
+    <meta name="msapplication-TileImage" content="/icons/ms-icon-144x144.png">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/android-icon-192x192.png">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/icons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/icons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/icons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/icons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/icons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/icons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/icons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-icon-180x180.png">
+    
+    <!-- Splash Screens for iOS -->
+    <link rel="apple-touch-startup-image" href="/splash/launch-640x1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/splash/launch-750x1294.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/splash/launch-1242x2148.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/splash/launch-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.ivanchat.com" crossorigin>
+    <link rel="preconnect" href="https://api.ivanchat.com" crossorigin>
+    
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="https://cdn.ivanchat.com">
+    <link rel="dns-prefetch" href="https://api.ivanchat.com">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Critical CSS (inline for faster initial render) -->
+    <style>
+        :root {
+            --color-primary: #5865F2;
+            --color-primary-dark: #4752C4;
+            --color-primary-light: #7983F5;
+            --color-secondary: #EB459E;
+            --color-success: #57F287;
+            --color-warning: #FEE75C;
+            --color-danger: #ED4245;
+            --color-info: #5865F2;
+            
+            --bg-primary: #36393F;
+            --bg-secondary: #2F3136;
+            --bg-tertiary: #202225;
+            --bg-accent: #292B2F;
+            --bg-floating: #18191C;
+            
+            --text-primary: #DCDDDE;
+            --text-secondary: #B9BBBE;
+            --text-muted: #72767D;
+            --text-link: #00AFF4;
+            
+            --header-primary: #FFFFFF;
+            --header-secondary: #B9BBBE;
+            
+            --border-color: #202225;
+            --divider-color: rgba(79, 84, 92, 0.48);
+            
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Consolas', 'Courier New', monospace;
+            
+            --scrollbar-thin-thumb: #202225;
+            --scrollbar-thin-track: transparent;
+            --scrollbar-auto-thumb: #202225;
+            --scrollbar-auto-track: #2F3136;
+            --scrollbar-auto-scrollbar-color-thumb: #202225;
+            --scrollbar-auto-scrollbar-color-track: #2F3136;
+        }
+        
+        [data-theme="light"] {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F2F3F5;
+            --bg-tertiary: #E3E5E8;
+            --bg-accent: #F2F3F5;
+            --bg-floating: #FFFFFF;
+            
+            --text-primary: #2E3338;
+            --text-secondary: #4F5660;
+            --text-muted: #747F8D;
+            --text-link: #0068E0;
+            
+            --header-primary: #060607;
+            --header-secondary: #4F5660;
+            
+            --border-color: #E3E5E8;
+            --divider-color: rgba(6, 6, 7, 0.08);
+            
+            --scrollbar-thin-thumb: #C1C3C7;
+            --scrollbar-auto-thumb: #C1C3C7;
+            --scrollbar-auto-track: #F2F3F5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-primary);
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+        
+        #root {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-tertiary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.3s ease-out;
+        }
+        
+        .loading-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loading-logo {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 32px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--bg-secondary);
+            border-top-color: var(--color-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        .loading-text {
+            margin-top: 24px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        
+        .loading-progress {
+            width: 200px;
+            height: 4px;
+            background: var(--bg-secondary);
+            border-radius: 2px;
+            margin-top: 16px;
+            overflow: hidden;
+        }
+        
+        .loading-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+            border-radius: 2px;
+            animation: progress 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes progress {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            100% { width: 100%; }
+        }
+        
+        /* Scrollbar Styles */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--scrollbar-auto-track);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-auto-thumb);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--scrollbar-thin-thumb);
+        }
+        
+        /* Noscript Styles */
+        noscript {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+        
+        .noscript-content {
+            text-align: center;
+            padding: 32px;
+            max-width: 500px;
+        }
+        
+        .noscript-icon {
+            font-size: 48px;
+            margin-bottom: 24px;
+        }
+        
+        .noscript-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--header-primary);
+            margin-bottom: 16px;
+        }
+        
+        .noscript-text {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+    </style>
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/logo.svg" as="image">
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => console.log('ServiceWorker registered:', registration))
+                    .catch(error => console.log('ServiceWorker registration failed:', error));
+            });
+        }
+    </script>
+    
+    <!-- Theme Detection and Application -->
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme') || 
+                         (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <svg class="loading-logo" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#5865F2;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#EB459E;stop-opacity:1" />
+                </linearGradient>
+            </defs>
+            <path d="M60 10 L90 30 L90 70 L60 90 L30 70 L30 30 Z" fill="url(#gradient)" />
+            <text x="60" y="65" font-family="Inter, sans-serif" font-size="36" font-weight="700" text-anchor="middle" fill="white">IC</text>
+        </svg>
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Connecting to IvanChat...</div>
+        <div class="loading-progress">
+            <div class="loading-progress-bar"></div>
+        </div>
+    </div>
+    
+    <!-- Root Element -->
+    <div id="root"></div>
+    
+    <!-- Noscript -->
+    <noscript>
+        <div class="noscript-content">
+            <div class="noscript-icon">⚠️</div>
+            <div class="noscript-title">JavaScript Required</div>
+            <div class="noscript-text">
+                IvanChat requires JavaScript to be enabled in your browser. 
+                Please enable JavaScript and refresh the page to continue.
+            </div>
+        </div>
+    </noscript>
+    
+    <!-- Module Script -->
+    <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- Loading Screen Removal -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const loadingScreen = document.getElementById('loading-screen');
+                if (loadingScreen) {
+                    loadingScreen.classList.add('fade-out');
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                    }, 300);
+                }
+            }, 1000);
+        });
+    </script>
+    
+    <!-- Error Tracking -->
+    <script>
+        window.addEventListener('error', (event) => {
+            console.error('Global error:', event.error);
+            // Send to error tracking service
+        });
+        
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('Unhandled promise rejection:', event.reason);
+            // Send to error tracking service
+        });
+    </script>
+</body>
+</html>
