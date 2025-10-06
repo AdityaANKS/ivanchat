@@ -893,7 +893,7 @@ set DEBUG=ivanchat:* && npm run dev
 
 ### Support Channels
 
-- 📧 Email: contact.ivanchat@gmail.com
+- 📧 Email: support@ivanchat.com
 - 🐛 Issues: [GitHub Issues](https://github.com/ivanchat/issues)
 - 📖 Docs: [Documentation](https://docs.ivanchat.com)
 
@@ -1015,7 +1015,7 @@ SOFTWARE.
 
 **IvanChat Team**
 - Website: [https://ivanchat.com](https://ivanchat.com)
-- Email: contact.ivanchat@gmail.com
+- Email: contact@ivanchat@gmail.com
 - Twitter: [@ivanchat](https://twitter.com/ivanchat)
 - LinkedIn: [IvanChat](https://linkedin.com/company/ivanchat)
 
