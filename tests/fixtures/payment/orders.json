@@ -1,0 +1,37 @@
+{
+  "mockOrder": {
+    "_id": "507f1f77bcf86cd799439011",
+    "userId": "507f1f77bcf86cd799439012",
+    "planId": "monthly",
+    "amount": 99,
+    "currency": "INR",
+    "transactionRef": "txn_mock_123",
+    "status": "pending",
+    "expiresAt": "2024-12-31T23:59:59Z",
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  "mockOrders": [
+    {
+      "_id": "507f1f77bcf86cd799439011",
+      "userId": "507f1f77bcf86cd799439012",
+      "planId": "monthly",
+      "amount": 99,
+      "status": "paid"
+    },
+    {
+      "_id": "507f1f77bcf86cd799439013",
+      "userId": "507f1f77bcf86cd799439012",
+      "planId": "yearly",
+      "amount": 999,
+      "status": "pending"
+    },
+    {
+      "_id": "507f1f77bcf86cd799439014",
+      "userId": "507f1f77bcf86cd799439012",
+      "planId": "lifetime",
+      "amount": 4999,
+      "status": "failed"
+    }
+  ]
+}

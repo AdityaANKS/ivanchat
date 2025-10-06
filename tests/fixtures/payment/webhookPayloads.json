@@ -1,0 +1,72 @@
+{
+  "razorpay": {
+    "success": {
+      "event": "payment.captured",
+      "payload": {
+        "payment": {
+          "entity": {
+            "id": "pay_test_success_123",
+            "amount": 9900,
+            "currency": "INR",
+            "status": "captured",
+            "order_id": "order_test_123",
+            "method": "upi",
+            "vpa": "user@paytm",
+            "created_at": 1609459200,
+            "notes": {
+              "transactionRef": "txn_test_123",
+              "userId": "user_123",
+              "planId": "monthly"
+            }
+          }
+        }
+      }
+    },
+    "failed": {
+      "event": "payment.failed",
+      "payload": {
+        "payment": {
+          "entity": {
+            "id": "pay_test_failed_123",
+            "amount": 9900,
+            "currency": "INR",
+            "status": "failed",
+            "error_code": "BAD_REQUEST_ERROR",
+            "error_description": "Payment failed",
+            "notes": {
+              "transactionRef": "txn_test_123"
+            }
+          }
+        }
+      }
+    }
+  },
+  "cashfree": {
+    "success": {
+      "orderId": "cf_order_123",
+      "orderAmount": 99,
+      "orderCurrency": "INR",
+      "orderStatus": "PAID",
+      "paymentStatus": "SUCCESS",
+      "transactionId": "cf_txn_123",
+      "paymentMode": "UPI",
+      "transactionTime": "2024-01-01T10:00:00Z",
+      "referenceId": "txn_test_123"
+    }
+  },
+  "paytm": {
+    "success": {
+      "MID": "TEST123456",
+      "ORDERID": "order_test_123",
+      "TXNID": "paytm_txn_123",
+      "TXNAMOUNT": "99.00",
+      "PAYMENTMODE": "UPI",
+      "CURRENCY": "INR",
+      "TXNDATE": "2024-01-01 10:00:00",
+      "STATUS": "TXN_SUCCESS",
+      "RESPCODE": "01",
+      "RESPMSG": "Txn Success",
+      "BANKTXNID": "bank_123"
+    }
+  }
+}
