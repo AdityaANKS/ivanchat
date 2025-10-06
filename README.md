@@ -1015,7 +1015,7 @@ SOFTWARE.
 
 **IvanChat Team**
 - Website: [https://ivanchat.com](https://ivanchat.com)
-- Email: contact@ivanchat.com
+- Email: contact@ivanchat@gmail.com
 - Twitter: [@ivanchat](https://twitter.com/ivanchat)
 - LinkedIn: [IvanChat](https://linkedin.com/company/ivanchat)
 
