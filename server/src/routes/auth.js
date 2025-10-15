@@ -3,6 +3,7 @@ import passport from '../config/passport.js';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 import { validateRegistration, validateLogin } from '../middleware/validation.js';
+import { validateUpdateProfile } from '../middleware/validation.js';
 import { sendVerificationEmail, sendPasswordResetEmail } from '../services/EmailService.js';
 import crypto from 'crypto';
 import bcrypt from 'bcryptjs';

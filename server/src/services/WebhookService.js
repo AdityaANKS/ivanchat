@@ -249,3 +249,4 @@ export class WebhookService {
     return `sha256=${hmac.digest('hex')}`;
   }
 }
+export default WebhookService;

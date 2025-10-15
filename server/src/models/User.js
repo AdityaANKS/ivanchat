@@ -661,4 +661,4 @@ UserSchema.statics.searchUsers = async function(query, limit = 10) {
   .select('username discriminator displayName avatar status');
 };
 
-module.exports = mongoose.model('User', UserSchema);
+export default mongoose.model('User', userSchema);

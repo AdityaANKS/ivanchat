@@ -1,16 +1,16 @@
-import express from 'express';
-import authRoutes from './auth.js';
-import userRoutes from './users.js';
-import serverRoutes from './servers.js';
-import channelRoutes from './channels.js';
-import messageRoutes from './messages.js';
-import adminRoutes from './admin.js';
-import webhookRoutes from './webhooks.js';
-import marketplaceRoutes from './marketplace.js';
-import uploadRoutes from './upload.js';
-import aiRoutes from './ai.js';
-import analyticsRoutes from './analytics.js';
-import discoveryRoutes from './discovery.js';
+const express = require('express');
+const authRoutes = require('./auth.js');
+const userRoutes = require('./users.js');
+const serverRoutes = require('./servers.js');
+const channelRoutes = require('./channels.js');
+const messageRoutes = require('./messages.js');
+const adminRoutes = require('./admin.js');
+const webhookRoutes = require('./webhooks.js');
+const marketplaceRoutes = require('./marketplace.js');
+const uploadRoutes = require('./upload.js');
+const aiRoutes = require('./ai.js');
+const analyticsRoutes = require('./analytics.js');
+const discoveryRoutes = require('./discovery.js');
 
 const router = express.Router();
 
@@ -42,4 +42,4 @@ router.get('/', (req, res) => {
   });
 });
 
-export default router;
+module.exports = router;

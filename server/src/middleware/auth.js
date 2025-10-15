@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 import { AuthenticationError } from './errorHandler.js';
+import { validateRegistration, validateLogin } from '../middleware/validation.js';
 
 export const authenticateUser = async (req, res, next) => {
   try {

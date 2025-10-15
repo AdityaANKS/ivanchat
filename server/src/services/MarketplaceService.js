@@ -1,6 +1,6 @@
 // server/services/MarketplaceService.js
 import MarketplaceItem from '../models/MarketplaceItem.js';
-import { SandboxRunner } from './SandboxRunner.js';
+import SandboxRunner from './SandboxRunner.js';
 import Stripe from 'stripe';
 
 export class MarketplaceService {
@@ -285,3 +285,4 @@ export class MarketplaceService {
     // Implementation would use a JSON schema validator
   }
 }
+export default MarketplaceService;
