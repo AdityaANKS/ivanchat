@@ -17,7 +17,7 @@ const router = express.Router();
 // Public routes
 router.use('/auth', authRoutes);
 router.use('/discovery', discoveryRoutes);
-
+ 
 // Protected routes (add auth middleware as needed)
 router.use('/users', userRoutes);
 router.use('/servers', serverRoutes);
@@ -28,6 +28,7 @@ router.use('/ai', aiRoutes);
 router.use('/analytics', analyticsRoutes);
 router.use('/webhooks', webhookRoutes);
 router.use('/marketplace', marketplaceRoutes);
+router.use('/authMiddleware', require('./middleware/authMiddleware.js'));
 
 // Admin routes
 router.use('/admin', adminRoutes);

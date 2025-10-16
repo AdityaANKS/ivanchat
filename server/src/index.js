@@ -19,7 +19,16 @@ import { passportConfig } from './config/passport.js';
 
 // Import middleware
 import { errorHandler } from './middleware/errorHandler.js';
-import { authMiddleware } from './middleware/auth.js';
+// eslint-disable-next-line no-unused-vars
+import authRoutes from './routes/auth.js';
+import userRoutes from './routes/user.js';
+import serverRoutes from './routes/server.js';
+import { authenticateUser } from './middleware/authMiddleware.js';
+
+app.use('/api/auth', authRoutes); // Public endpoints
+app.use('/api/users', authenticateUser, userRoutes); // Protected routes
+app.use('/api/servers', authenticateUser, serverRoutes); // Protected routes
+
 import { metricsMiddleware } from './middleware/metrics.js';
 
 // Import routes

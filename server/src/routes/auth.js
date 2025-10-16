@@ -350,6 +350,18 @@ router.post('/logout', passport.authenticate('jwt', { session: false }), async (
   } catch (error) {
     res.status(500).json({ error: 'Logout failed' });
   }
+  // In routes
+router.get('/profile', authenticate(), userController.getProfile);
+router.get('/admin', authenticate({ roles: ['admin'] }), adminController.dashboard);
+router.post('/sensitive', authenticate({ requireMFA: true }), controller.sensitive);
+
+// Custom authentication
+router.get('/api/data', authenticate({
+  permissions: ['read:data'],
+  requireMFA: true,
+  requireDeviceVerification: true
+}), controller.getData);
+
 });
 
 export default router;

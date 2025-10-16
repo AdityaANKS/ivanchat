@@ -10,7 +10,7 @@ const upload = multer({
 });
 
 // Middleware
-const { authenticate, optionalAuth } = require('../middleware/auth');
+const { authenticate, optionalAuth } = require('../middleware/authMiddleware');
 const { checkRole, checkServerPermission, isServerOwner, isServerMember } = require('../middleware/roles');
 const { validate } = require('../middleware/validation');
 const { rateLimiter } = require('../middleware/rateLimiter');
