@@ -1,6 +1,6 @@
 import express from 'express';
 import userController from '../controllers/userController.js';
-import { authMiddleware } from '../middleware/authMiddleware.js';
+import { authMiddleware } from "../middleware/authMiddleware.js";
 import { validateUpdateProfile } from '../middleware/validation.js';
 import StorageService from '../services/StorageService.js';
 
@@ -55,6 +55,5 @@ router.get('/me/dms', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch DMs' });
   }
 });
-
 
 export default router;

@@ -1,8 +1,12 @@
 {
   "name": "ivanchat-desktop",
   "version": "1.0.0",
-  "description": "IvanChat Desktop Application",
-  "main": "src/main.js",
+  "description": "IvanChat Desktop and Web Application",
+  "author": "Adi",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+
   "scripts": {
     "start": "electron .",
     "dev": "electron-forge start",
@@ -11,10 +15,21 @@
     "build:mac": "electron-builder --mac",
     "build:linux": "electron-builder --linux",
     "dist": "electron-builder --publish=always",
-    "postinstall": "electron-builder install-app-deps",
-    "test": "jest",
-    "lint": "eslint src/"
+    "postinstall": "echo 'Skipping electron-builder install-app-deps during npm install'",
+    "lint": "eslint src/",
+    "build:web": "cd web && npm install && npm run build",
+    "start:web": "cd web && npm run dev"
   },
+
+  
+  "netlify": {
+    "build": {
+      "command": "npm run build:web",
+      "publish": "web/dist"
+    },
+    "ignore": "git diff --quiet HEAD^ HEAD ./electron || echo 'Skipping Electron builds for Netlify...'"
+  },
+
   "build": {
     "appId": "com.ivanchat.desktop",
     "productName": "IvanChat",
@@ -33,30 +48,20 @@
       "gatekeeperAssess": false,
       "entitlements": "build/entitlements.mac.plist",
       "entitlementsInherit": "build/entitlements.mac.plist",
-      "target": [
-        "dmg",
-        "zip"
-      ]
+      "target": ["dmg", "zip"]
     },
     "win": {
       "icon": "assets/icons/icon.ico",
       "target": [
         {
           "target": "nsis",
-          "arch": [
-            "x64",
-            "ia32"
-          ]
+          "arch": ["x64", "ia32"]
         }
       ]
     },
     "linux": {
       "icon": "assets/icons",
-      "target": [
-        "AppImage",
-        "deb",
-        "rpm"
-      ],
+      "target": ["AppImage", "deb", "rpm"],
       "category": "Network;Chat"
     },
     "nsis": {
@@ -71,6 +76,7 @@
       "repo": "ivanchat-desktop"
     }
   },
+
   "dependencies": {
     "@electron/remote": "^2.0.11",
     "electron-context-menu": "^3.6.1",
@@ -83,9 +89,10 @@
     "electron-window-state": "^5.0.3",
     "node-notifier": "^10.0.1"
   },
+
   "devDependencies": {
     "@electron-forge/cli": "^6.4.2",
-    "electron": "^26.2.4",
+    "electron": "26.2.4",
     "electron-builder": "^24.6.4",
     "electron-devtools-installer": "^3.2.0",
     "eslint": "^8.49.0",

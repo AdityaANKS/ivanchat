@@ -1,0 +1,4 @@
+owner: ivanchat
+repo: ivanchat-desktop
+provider: github
+updaterCacheDirName: ivanchat-desktop-updater

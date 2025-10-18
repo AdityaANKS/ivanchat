@@ -17,12 +17,12 @@ import { dbConfig } from './config/database.js';
 import { redisConfig } from './config/redis.js';
 import { passportConfig } from './config/passport.js';
 
-// Import middleware
+// Import middleware 
 import { errorHandler } from './middleware/errorHandler.js';
 // eslint-disable-next-line no-unused-vars
 import authRoutes from './routes/auth.js';
-import userRoutes from './routes/user.js';
-import serverRoutes from './routes/server.js';
+import userRoutes from './routes/users.js';
+import serverRoutes from './routes/servers.js';
 import { authenticateUser } from './middleware/authMiddleware.js';
 
 app.use('/api/auth', authRoutes); // Public endpoints
